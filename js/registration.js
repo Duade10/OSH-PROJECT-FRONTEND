@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const eventId = localStorage.getItem('event-id')
     if (eventId !== null) {
-        fetch(`http://localhost:8000/events/detail/${eventId}/`, {
+        fetch(`https://osunstartuphubapi.pythonanywhere.com/api/events/detail/${eventId}/`, {
             method: 'GET',
             headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         })
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var data = JSON.stringify(formDataDictionary)
-        const registrationUrl = 'http://127.0.0.1:8000/events/register/';
+        const registrationUrl = 'https://osunstartuphubapi.pythonanywhere.com/api/events/register/';
         const alertContainer = document.getElementById('alert-container');
 
         fetch(registrationUrl, {
@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
             body: data,
         })
             .then(response => {
-                console.log(response.status);
                 if (response.status === 202) {
                     localStorage.setItem('reg-status', 'true');
                 } else if (response.status === 200) {
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const regStatus = localStorage.getItem('reg-status');
                 const alert = document.createElement('div');
                 alert.className = 'alert alert-dismissible fade show';
-                console.log(regStatus)
                 if (regStatus === 'true') {
                     alert.classList.add('alert-success');
                     alert.innerHTML = `
