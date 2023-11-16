@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Osun Startup Hub | Blog</title>
+</head>
+
+<body>
+    <nav id="navbar-container" class="navbar navbar-expand-lg my_container"></nav>
+    <div class="container mt-5">
+        <h1>Osun Hackathon Competition Registration</h1>
+        <form method="post">
+
+            <!-- Personal Information -->
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+            </div>
+
+            <!-- Add more personal information fields as needed -->
+
+            <!-- Team Information (if applicable) -->
+            <div class="form-group">
+                <label for="team_name">Team Name</label>
+                <input type="text" class="form-control" id="team_name" name="team_name">
+            </div>
+
+            <!-- Add more team information fields as needed -->
+
+            <!-- Competition Details -->
+            <div class="form-group">
+                <label for="registration_type">Registration Type</label>
+                <select class="form-control" id="registration_type" name="registration_type" required>
+                    <option value="Individual">Individual</option>
+                    <option value="Team">Team</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="participated_before">Have you participated in a hackathon before?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="participated_before" id="yes" value="Yes"
+                        required>
+                    <label class="form-check-label" for="yes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="participated_before" id="no" value="No" required>
+                    <label class="form-check-label" for="no">No</label>
+                </div>
+            </div>
+
+            <!-- Add more competition details fields as needed -->
+
+            <!-- Technical Skills -->
+            <div class="form-group">
+                <label for="programming_languages">Programming Languages</label>
+                <input type="text" class="form-control" id="programming_languages" name="programming_languages">
+            </div>
+
+            <!-- Add more technical skills fields as needed -->
+
+            <!-- Project Idea (if known) -->
+            <div class="form-group">
+                <label for="project_idea">Briefly describe your hackathon project idea</label>
+                <textarea class="form-control" id="project_idea" name="project_idea" rows="3"></textarea>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms_and_conditions" name="agreed_to_terms"
+                    required>
+                <label class="form-check-label" for="terms_and_conditions">
+                    I have read and agree to the competition rules and regulations.
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <a class="btn btn-block btn-warning shadow-lg mt-3">Register</a>
+        </form>
+    </div>
+
+    <section id="getintouch"></section>
+    <footer id="footer-container"></footer>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Get the form element by its ID
+        const form = document.getElementById('registration-form');
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Serialize form data into a JSON object
+            const formData = new FormData(form);
+            const formDataJSON = {};
+            formData.forEach((value, key) => {
+                formDataJSON[key] = value;
+            });
+
+            // Send a POST request to your Django API endpoint
+            fetch('/api/applicants/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Include CSRF token
+                },
+                body: JSON.stringify(formDataJSON)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle success response
+                    console.log('Success:', data);
+                    // Optionally, display a success message to the user
+                    alert('Registration successful!');
+                })
+                .catch(error => {
+                    // Handle error
+                    console.error('Error:', error);
+                    // Optionally, display an error message to the user
+                    alert('Registration failed. Please try again.');
+                });
+        });
+
+        // Function to get the CSRF token from cookies
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
+</body>
+
+</html>
