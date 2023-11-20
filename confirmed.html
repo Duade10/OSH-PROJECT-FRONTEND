@@ -78,29 +78,31 @@
             return urlParams.get(parameter);
         }
 
-
         const entryIdNotif = document.getElementById("entry_id_notif");
         const urlString = window.location.href;
-        const uid = getUrlParameter(urlString, 'uid');
-        const eid = getUrlParameter(urlString, 'eid');
+        const userId = getUrlParameter(urlString, 'uid');
+        const eventId = getUrlParameter(urlString, 'eid');
 
         function handleNotif() {
             entryIdNotif.classList.remove("bg-warning");
             entryIdNotif.classList.add("bg-success");
-            entryIdNotif.innerText = "Entry identification number sent"
+            entryIdNotif.innerText = "Entry identification number sent";
         }
 
-        fetch(`https://osunstartuphubapi.pythonanywhere.com/api/events/${uid}/${eid}/`, {
+        fetch(`https://osunstartuphubapi.pythonanywhere.com/api/events/${userId}/${eventId}/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
         })
             .then(response => response.json())
-            .then(data => handleNotif())
+            .then(data => {
+                handleNotif();
+            })
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('Error:', error.status, error.message);
             });
+
 
     </script>
 </body>
