@@ -44,8 +44,11 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div id="alert-container"></div>
-                <h2 class="mb-4 text-center">We've just sent your entry identification number to your email address.
-                </h2>
+                <h2 class="mb-4 text-center">Email Account Registered Successfully</h2>
+                <p id="entry_id_notif" class="bg-warning p-3 text-center rounded-top rounded-bottom text-white">Sending
+                    entry
+                    identification number...
+                </p>
             </div>
         </div>
     </div>
@@ -68,7 +71,38 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/common.js"></script>
     <script src="js/main.js"></script>
+    <script>
 
+        function getUrlParameter(url, parameter) {
+            const urlParams = new URLSearchParams(url);
+            return urlParams.get(parameter);
+        }
+
+
+        const entryIdNotif = document.getElementById("entry_id_notif");
+        const urlString = window.location.href;
+        const uid = getUrlParameter(urlString, 'uid');
+        const eid = getUrlParameter(urlString, 'eid');
+
+        function handleNotif() {
+            entryIdNotif.classList.remove("bg-warning");
+            entryIdNotif.classList.add("bg-success");
+            entryIdNotif.innerText = "Entry identification number sent"
+        }
+
+        fetch(`https://osunstartuphubapi.pythonanywhere.com/api/events/${uid}/${eid}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => handleNotif())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    </script>
 </body>
 
 </html>
